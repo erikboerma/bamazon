@@ -1,0 +1,27 @@
+{
+  "name": "bamazon",
+  "version": "1.0.0",
+  "description": "Your one stop shop to all your online shopping needs",
+  "main": "bamazonCustomer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/erikboerma/bamazon.git"
+  },
+  "keywords": [
+    "shopping",
+    "overpriced",
+    "convenient"
+  ],
+  "author": "Erik Boerma",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/erikboerma/bamazon/issues"
+  },
+  "homepage": "https://github.com/erikboerma/bamazon#readme",
+  "dependencies": {
+    "mysql": "^2.17.1"
+  }
+}

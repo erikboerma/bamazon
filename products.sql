@@ -3,7 +3,7 @@ CREATE DATABASE bamazon_DB;
 USE bamazon_DB;
 
 CREATE TABLE products (
-    item_id INT NOT NULL,
+    item_id INTEGER NOT NULL AUTO_INCREMENT,
     product_name VARCHAR (100) NULL,
     department_name VARCHAR (100) NULL,
     price DECIMAL NULL (6, 2),
@@ -12,31 +12,15 @@ CREATE TABLE products (
 );
 
 INSERT INTO products (product_name, department_name, price, stock_quantity)
-VALUES ("Paintbrush", "Art", 2.99, 5);
+VALUES ("Paintbrush", "Art", 2.99, 5),
+ ("TV", "Electronics", 599.97, 10),
+ ("Xbox", "Electronics", 199.95, 7),
+ ("Nintendo", "Electronics", 25.95, 5),
+ ("Drawling Paper", "Art", 12.99, 20),
+ ("Pencil", "Art", 0.99, 100),
+ ("Bucket Hat", "Style", 15.98, 125),
+ ("Sunglasses", "Style", 19.99, 20),
+ ("Jenko Jeans", "Style", 79.98, 18),
+ ("Air Jordans", "Style", 275.95, 15);
 
-INSERT INTO products (product_name, department_name, price, stock_quantity)
-VALUES ("TV", "Electronics", 599.97, 10);
-
-INSERT INTO products (product_name, department_name, price, stock_quantity)
-VALUES ("Xbox", "Electronics", 199.95, 7)
-
-INSERT INTO products (product_name, department_name, price, stock_quantity)
-VALUES ("Nintendo", "Electronics", 25.95, 5);
-
-INSERT INTO products (product_name, department_name, price, stock_quantity)
-VALUES ("Drawling Paper", "Art", 12.99, 20);
-
-INSERT INTO products (product_name, department_name, price, stock_quantity)
-VALUES ("Pencil", "Art", 0.99, 100);
-
-INSERT INTO products (product_name, department_name, price, stock_quantity)
-VALUES ("Bucket Hat", "Style", 15.98, 125);
-
-INSERT INTO products (product_name, department_name, price, stock_quantity)
-VALUES ("Sunglasses", "Style", 19.99, 20);
-
-INSERT INTO products (product_name, department_name, price, stock_quantity)
-VALUES ("Jenko Jeans", "Style", 79.98, 18);
-
-INSERT INTO products (product_name, department_name, price, stock_quantity)
-VALUES ("Air Jordans", "Style", 275.95, 15);
+ SELECT * FROM products;
