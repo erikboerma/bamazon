@@ -34,13 +34,6 @@ connection.connect(function (err) {
 function buy() {
   connection.query("SELECT * FROM products", function (err, results) {
     if (err) throw err;
-    // var arr = [];
-    // for (var i = 0; i < results.length; i++){
-    //   arr.push(results[i].product_name);
-    // }
-    // console.log(arr);
-    // console.log(results[1].product_name);
-    // if (err) throw err;
     inquirer.prompt([
       {
         name: "id",
@@ -78,8 +71,8 @@ function buy() {
         if (answer.quantity <= chosenItem.stock_quantity) {
           var quantity = chosenItem.stock_quantity - answer.quantity;
           var item = chosenItem.product_name;
-          console.log(quantity);
-          console.log(item);
+          // console.log(quantity);
+          // console.log(item);
           connection.query(
             "UPDATE products SET stock_quantity = ? WHERE product_name = ?",
             [quantity, item],
@@ -87,6 +80,7 @@ function buy() {
               if (err) throw err;
               console.log("Product purchased, you will receive it in 25 days!")
               // connection.end();
+              buy();
             }
           )
         } else {
@@ -96,7 +90,7 @@ function buy() {
         }
       })
   })
-  connection.end();
+  // connection.end();
 
 }
   
