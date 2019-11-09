@@ -86,36 +86,33 @@ function buy() {
                 message: "Would you like to make another purchase?",
                 choices: ["YES", "NO"]
               })
-              .then(function(answer) {
-                // based on their answer, either call the bid or the post functions
-                if (answer.exit === "YES") {
-                  connection.query("SELECT * FROM products", function (err, res) {
-                    if (err) throw err;
-                    for (i = 0; i < res.length; i++) {
-                      console.log("Item ID: " + res[i].item_id + " || " +
-                        "Product: " + res[i].product_name + " || " +
-                        "Department: " + res[i].department_name + " || " +
-                        "Price: " + res[i].price + " || " +
-                        "Quantity: " + res[i].stock_quantity)
-                    }
-                    buy();
-                  })
-                }
-                else{
-                  connection.end();
-                }
-              });
+                .then(function (answer) {
+                  if (answer.exit === "YES") {
+                    connection.query("SELECT * FROM products", function (err, res) {
+                      if (err) throw err;
+                      for (i = 0; i < res.length; i++) {
+                        console.log("Item ID: " + res[i].item_id + " || " +
+                          "Product: " + res[i].product_name + " || " +
+                          "Department: " + res[i].department_name + " || " +
+                          "Price: " + res[i].price + " || " +
+                          "Quantity: " + res[i].stock_quantity)
+                      }
+                      buy();
+                    })
+                  }
+                  else {
+                    connection.end();
+                  }
+                });
 
-              
+
             }
           )
         } else {
           console.log("Sorry, we don't have that many left..");
-          // connection.end();
           buy();
         }
       })
   })
-  // connection.end();
 
 }
