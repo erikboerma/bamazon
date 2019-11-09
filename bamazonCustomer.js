@@ -46,19 +46,18 @@ function buy() {
           }
           return choiceArray;
         },
-        
+
         message: "What would you like to buy?"
       },
       {
         name: "quantity",
         type: "input",
         message: "How many would you like to buy?"
-        }
+      }
     ])
-      // product_name, department_name, price, stock_quantity
       .then(function (answer) {
         // console.log(answer);
-        
+
         var chosenItem;
         for (var i = 0; i < results.length; i++) {
           if (results[i].product_name === answer.id) {
@@ -79,8 +78,35 @@ function buy() {
             function (err) {
               if (err) throw err;
               console.log("Product purchased, you will receive it in 25 days!")
-              // connection.end();
-              buy();
+              console.log("------------------------");
+
+              inquirer.prompt({
+                name: "exit",
+                type: "list",
+                message: "Would you like to make another purchase?",
+                choices: ["YES", "NO"]
+              })
+              .then(function(answer) {
+                // based on their answer, either call the bid or the post functions
+                if (answer.exit === "YES") {
+                  connection.query("SELECT * FROM products", function (err, res) {
+                    if (err) throw err;
+                    for (i = 0; i < res.length; i++) {
+                      console.log("Item ID: " + res[i].item_id + " || " +
+                        "Product: " + res[i].product_name + " || " +
+                        "Department: " + res[i].department_name + " || " +
+                        "Price: " + res[i].price + " || " +
+                        "Quantity: " + res[i].stock_quantity)
+                    }
+                    buy();
+                  })
+                }
+                else{
+                  connection.end();
+                }
+              });
+
+              
             }
           )
         } else {
@@ -93,4 +119,3 @@ function buy() {
   // connection.end();
 
 }
-  
