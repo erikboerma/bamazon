@@ -33,60 +33,73 @@ connection.connect(function (err) {
 
 function buy() {
   connection.query("SELECT * FROM products", function (err, results) {
-    var arr = [];
-    for (var i = 0; i < results.length; i++){
-      arr.push(results[i].product_name);
-    }
-    console.log(arr);
+    if (err) throw err;
+    // var arr = [];
+    // for (var i = 0; i < results.length; i++){
+    //   arr.push(results[i].product_name);
+    // }
+    // console.log(arr);
     // console.log(results[1].product_name);
     // if (err) throw err;
     inquirer.prompt([
       {
         name: "id",
         type: "rawlist",
-        choices: function (arr) {
-          console.log(arr);
+        choices: function () {
+          // console.log(results);
           var choiceArray = [];
-          for (var i = 0; i < arr.length; i++) {
-            choiceArray.push(arr[i]);
+          for (var i = 0; i < results.length; i++) {
+            choiceArray.push(results[i].product_name);
           }
-          console.log(choiceArray);
           return choiceArray;
         },
         
         message: "What would you like to buy?"
-        
       },
       {
         name: "quantity",
         type: "input",
         message: "How many would you like to buy?"
-      }
+        }
     ])
       // product_name, department_name, price, stock_quantity
       .then(function (answer) {
+        // console.log(answer);
+        
         var chosenItem;
         for (var i = 0; i < results.length; i++) {
-          if (results[i].product_name === answer.choice) {
+          if (results[i].product_name === answer.id) {
             chosenItem = results[i];
           }
         }
-        if (chosenItem.stock_quantity < parseInt(answer.quantity)) {
+        // console.log(answer.quantity);
+        // console.log(chosenItem.stock_quantity);
+        // console.log(chosenItem);
+        if (answer.quantity <= chosenItem.stock_quantity) {
+          var quantity = chosenItem.stock_quantity - answer.quantity;
+          console.log(quantity);
+          console.log(stock_quantity);
+          console.log(chosenItem.product_name);
+          console.log(product_name);
           connection.query(
-            "UPDATE products REDUCE ? BY ?",
+            "UPDATE products SET ? WHERE ?",
             [{
-              stock_quantity: stock_quantity - quantity
+              stock_quantity: quantity
             },
             {
-              id: chosenItem.id
+              product_name: chosenItem.product_name
             }
             ],
             function (err) {
               if (err) throw err;
               console.log("Product purchased, you will receive it in 25 days!")
-              buy();
+              // connection.end();
             }
           )
+        } else {
+          console.log("Sorry, we don't have that many left..");
+          // connection.end();
+          buy();
         }
       })
   })
