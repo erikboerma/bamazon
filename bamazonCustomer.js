@@ -77,19 +77,12 @@ function buy() {
         // console.log(chosenItem);
         if (answer.quantity <= chosenItem.stock_quantity) {
           var quantity = chosenItem.stock_quantity - answer.quantity;
+          var item = chosenItem.product_name;
           console.log(quantity);
-          console.log(stock_quantity);
-          console.log(chosenItem.product_name);
-          console.log(product_name);
+          console.log(item);
           connection.query(
-            "UPDATE products SET ? WHERE ?",
-            [{
-              stock_quantity: quantity
-            },
-            {
-              product_name: chosenItem.product_name
-            }
-            ],
+            "UPDATE products SET stock_quantity = ? WHERE product_name = ?",
+            [quantity, item],
             function (err) {
               if (err) throw err;
               console.log("Product purchased, you will receive it in 25 days!")
