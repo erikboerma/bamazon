@@ -4,7 +4,7 @@ var inquirer = require("inquirer");
 
 var connection = mysql.createConnection({
   host: "localhost",
-no
+
   // Your port; if not 3306
   port: 3306,
 
